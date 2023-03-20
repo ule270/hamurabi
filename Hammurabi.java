@@ -138,16 +138,15 @@ public class Hammurabi {
 //        }
         return immigrants;
     }
-    int harvest(int bushelsUsedAsSeed){
-        int random = rand.nextInt(5);
-        System.out.println(bushelsUsedAsSeed);
-        // () so the value is converted to int after all operations.
-        System.out.println("Random number generated: " + random);
-        int acresAbleToPlant = bushelsUsedAsSeed/2;
-        System.out.println("Acres able to plant: " + acresAbleToPlant);
-        int harvestedBushels = acresAbleToPlant*random;
-        System.out.println("Harvested bushels: " + harvestedBushels);
-        return harvestedBushels;
+    int harvest(int acres){
+        int random = (int) ((Math.random() * 6) + 1);
+
+//        // () so the value is converted to int after all operations.
+//        int acresAbleToPlant = bushelsUsedAsSeed/2;
+//        System.out.println("Acres able to plant: " + acresAbleToPlant);
+//        int harvestedBushels = acresAbleToPlant*random;
+//        System.out.println("Harvested bushels: " + harvestedBushels);
+        return random;
 
         //        if (acresAbleToPlant < acres) {
 //            harvestedBushels = acresAbleToPlant*random;
