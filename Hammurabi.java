@@ -139,32 +139,39 @@ public class Hammurabi {
         return immigrants;
     }
     int harvest(int bushelsUsedAsSeed){
-        int random = (int) Math.random() * (6-1) +1;
-        int acresAbleToPlant = (bushelsUsedAsSeed/2);
+        int random = rand.nextInt(5);
+        System.out.println(bushelsUsedAsSeed);
+        // () so the value is converted to int after all operations.
+        System.out.println("Random number generated: " + random);
+        int acresAbleToPlant = bushelsUsedAsSeed/2;
+        System.out.println("Acres able to plant: " + acresAbleToPlant);
         int harvestedBushels = acresAbleToPlant*random;
+        System.out.println("Harvested bushels: " + harvestedBushels);
+        return harvestedBushels;
 
-//        if (acresAbleToPlant < acres) {
+        //        if (acresAbleToPlant < acres) {
 //            harvestedBushels = acresAbleToPlant*random;
 //        } else {
 //
 //        }
-        return harvestedBushels;
     }
     int grainEatenByRats(int bushels){
         int chanceRats = (int) (Math.random() * (100 - 1) + 1);
         int eatenByRats = 0;
         if (chanceRats <= 40){
-            eatenByRats = bushels* ((int) (Math.random()*(30-10) +10));
+            //to ensure that the eatenByRats is always a number between 10-30%
+            int percentEaten = ((int) (Math.random()*(30-10) +10));
+            eatenByRats = bushels * percentEaten / 100;
         }
         return eatenByRats;
     }
     int newCostOfLand(){
-        int landPrice = (int) (Math.random() * (23-17) +17);
+        int landPrice = (int) (Math.random() * (24-17) +17);
         return landPrice;
     }
 
     void year1 (int stores, int totalDeaths, int percentDied, int rats, int landCost,
-               int plagueDeaths, int starvationDeaths, int immigrants, int population, int acres) {
+                int plagueDeaths, int starvationDeaths, int immigrants, int population, int acres) {
         int year1AcresBuy = askHowManyAcresToBuy(landCost, stores);
         int year1AcresSell = askHowManyAcresToSell(acres);
         int year1GrainFeed = askHowMuchGrainToFeedPeople(stores);
