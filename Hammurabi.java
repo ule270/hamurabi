@@ -37,13 +37,14 @@ public class Hammurabi {
     }
 
     void playGame() {
-        int grain;
         int totalDeaths = 0;
         int percentDied = 0;
         int rats = 0;
-        int landCost;
-        int plagueDeaths;
-        int starvationDeaths;
+        int landCost = 19;
+        int plagueDeaths = 0;
+        int starvationDeaths = 0;
+
+        //year1(stores, totalDeaths, percentDied, rats, landCost, plagueDeaths, starvationDeaths, immigrants, population, acres);
 
     }
     int askHowManyAcresToBuy(int price, int bushels) {
@@ -119,11 +120,7 @@ public class Hammurabi {
         return diedByPlague;
     }
     int starvationDeaths(int population, int bushelsFedToPeople){
-        int bushelsToSurvive = population*20;
-        int diedByStarve = 0;
-        if(bushelsToSurvive < bushelsFedToPeople) {
-            diedByStarve = population - Math.abs(((bushelsFedToPeople - bushelsToSurvive)/20));
-        }
+        int diedByStarve = (int) Math.abs(population - Math.floor((bushelsFedToPeople/20)));
         return diedByStarve;
     }
     boolean uprising(int population, int howManyPeopleStarved){
@@ -133,12 +130,12 @@ public class Hammurabi {
         return false;
     }
     int immigrants(int population, int acresOwned, int grainInStorage){
-        int immigrants = 0;
-        if (starvationDeaths(population, grainInStorage) >= 0) {
-            immigrants =0;
-        } else {
+        int immigrants;
+//        if (starvationDeaths(population, grainInStorage) > 0) {
+//            immigrants =0;
+//        } else {
             immigrants = (20*acresOwned + grainInStorage)/(100*population) +1;
-        }
+//        }
         return immigrants;
     }
     int harvest(int bushelsUsedAsSeed){
@@ -165,5 +162,21 @@ public class Hammurabi {
         int landPrice = (int) (Math.random() * (23-17) +17);
         return landPrice;
     }
+
+    void year1 (int stores, int totalDeaths, int percentDied, int rats, int landCost,
+               int plagueDeaths, int starvationDeaths, int immigrants, int population, int acres) {
+        int year1AcresBuy = askHowManyAcresToBuy(landCost, stores);
+        int year1AcresSell = askHowManyAcresToSell(acres);
+        int year1GrainFeed = askHowMuchGrainToFeedPeople(stores);
+        int year1AcresPlant = askHowManyAcresToPlant(acres, population, stores);
+        int year1PlagueDeaths = plagueDeaths(population);
+        int year1StarvationDeaths = starvationDeaths(population, stores);
+        boolean year1Uprising = uprising(population, starvationDeaths);
+        int year1Immigrants = immigrants(population, acres, stores);
+        int year1Harvest = harvest(stores);
+        int year1GrainRats = grainEatenByRats(stores);
+        int year1CostLand = newCostOfLand();
+    }
+
 
 }
