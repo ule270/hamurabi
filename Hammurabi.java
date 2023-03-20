@@ -45,8 +45,6 @@ public class Hammurabi {
         int plagueDeaths;
         int starvationDeaths;
 
-        // declare local variables here: grain, population, etc.
-        // statements go after the declarations
     }
     int askHowManyAcresToBuy(int price, int bushels) {
         isBuying = true;
@@ -113,25 +111,59 @@ public class Hammurabi {
         return userAcresPlant;
     }
     int plagueDeaths(int population){
-        return population;
+        int chancePlague = (int) (Math.random() * (100 - 1) + 1);
+        int diedByPlague = 0;
+        if (chancePlague <= 15){
+            diedByPlague = population/2;
+        }
+        return diedByPlague;
     }
     int starvationDeaths(int population, int bushelsFedToPeople){
-        return population;
+        int bushelsToSurvive = population*20;
+        int diedByStarve = 0;
+        if(bushelsToSurvive < bushelsFedToPeople) {
+            diedByStarve = population - Math.abs(((bushelsFedToPeople - bushelsToSurvive)/20));
+        }
+        return diedByStarve;
     }
     boolean uprising(int population, int howManyPeopleStarved){
+        if (howManyPeopleStarved >= 0.45*population) {
+            return true;
+        }
         return false;
     }
     int immigrants(int population, int acresOwned, int grainInStorage){
-        return population;
+        int immigrants = 0;
+        if (starvationDeaths(population, grainInStorage) >= 0) {
+            immigrants =0;
+        } else {
+            immigrants = (20*acresOwned + grainInStorage)/(100*population) +1;
+        }
+        return immigrants;
     }
-    int harvest(int acres){
-        return acres;
+    int harvest(int bushelsUsedAsSeed){
+        int random = (int) Math.random() * (6-1) +1;
+        int acresAbleToPlant = (bushelsUsedAsSeed/2);
+        int harvestedBushels = acresAbleToPlant*random;
+
+//        if (acresAbleToPlant < acres) {
+//            harvestedBushels = acresAbleToPlant*random;
+//        } else {
+//
+//        }
+        return harvestedBushels;
     }
     int grainEatenByRats(int bushels){
-        return bushels;
+        int chanceRats = (int) (Math.random() * (100 - 1) + 1);
+        int eatenByRats = 0;
+        if (chanceRats <= 40){
+            eatenByRats = bushels* ((int) (Math.random()*(30-10) +10));
+        }
+        return eatenByRats;
     }
     int newCostOfLand(){
-        return 5;
+        int landPrice = (int) (Math.random() * (23-17) +17);
+        return landPrice;
     }
 
 }
